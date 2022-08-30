@@ -1,0 +1,41 @@
+# install NVM
+https://github.com/nvm-sh/nvm
+nvm install
+
+npm install -g ts-node
+npm install -g typeorm
+
+npm run  migration:generate --  DataMigration (name) // generate migration file from *.entity file 
+npm run  migration:run  // run migration to synchronize database
+npm run migration:create addUsers // create migration file 
+
+npm run typeorm schema:log 
+typeorm schema:sync // You can modify entities and synchronize changes
+
+
+// generate files
+nest g module name 
+nest g service name
+nest g controller name
+
+
+// Nest.js | Middleware, Pipes & Interceptors Explained
+https://www.youtube.com/watch?v=x1W3FJ1RJlM
+
+
+// Error handling
+// controller
+ try {
+    // todo
+    // todo
+    } catch (error) {
+      throw new InternalServerErrorException('servicename ' + error.message);
+    }
+// service
+     try {
+    // todo
+    // todo
+    } catch (error) {
+      throw { message: ' ' + error.message };
+    }
+    

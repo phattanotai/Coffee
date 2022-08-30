@@ -1,0 +1,66 @@
+{
+  "name": "admin777",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@toast-ui/vue-editor": "^3.1.3",
+    "alga-css": "^1.0.0-stone-3",
+    "axios": "^0.27.2",
+    "buefy": "^0.9.19",
+    "core-js": "^3.6.5",
+    "dayjs": "^1.11.3",
+    "material-icons": "^1.10.8",
+    "moment": "^2.29.3",
+    "numeral": "^2.0.6",
+    "sweetalert2": "^9.17.2",
+    "toastr": "^2.1.4",
+    "v-calendar": "^2.4.1",
+    "vue": "^2.6.11",
+    "vue-filter-number-format": "^3.0.1",
+    "vue-input-tag": "^2.0.7",
+    "vue-paginate": "^3.6.0",
+    "vue-router": "^3.2.0",
+    "vue-sortable": "^0.1.3",
+    "vue-toast-notification": "^0.0.3",
+    "vuedraggable": "^2.24.3",
+    "vuesax": "^3.12.2",
+    "vuex": "^3.4.0",
+    "vuex-persistedstate": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/eslint-parser": "^7.18.2",
+    "@vue/cli-plugin-babel": "~4.5.12",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-plugin-router": "~4.5.12",
+    "@vue/cli-plugin-vuex": "~4.5.12",
+    "@vue/cli-service": "~4.5.12",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.2.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "plugin:prettier/recommended",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  }
+}

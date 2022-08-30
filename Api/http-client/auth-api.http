@@ -1,0 +1,27 @@
+### refreshToken
+GET http://localhost:5000/api/auth/refreshToken
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoidGVzdDEyMzQiLCJwYXNzd29yZCI6IjEyMzQiLCJuYW1lIjoidGVzdCJ9LCJpYXQiOjE2NTM2Mzk4MTQsImV4cCI6MTY1MzY0OTgxNH0.5kfT6CszVh_KA8olgZn42fBf9EO6_QPNS6YdbYmGCzw
+
+{
+    "name": "Holaddd",
+    "job": "programmer"
+}
+
+###
+// login
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+
+{
+    "username": "admin",
+    "password": "12345678"
+}
+
+###
+# test
+GET http://localhost:5000/api/auth/test
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE3ODAxNjYsImV4cCI6MTY2MTc5MDE2Nn0.EIyfKcL7ookHNYKqSsGxuYr-6Ab5f9Bn5ap6zeffFeA
+

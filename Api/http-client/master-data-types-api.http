@@ -1,0 +1,38 @@
+###
+// types
+GET http://localhost:5000/api/master-data/types
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE4MDc0MjgsImV4cCI6MTY2MTgxNzQyOH0.dsYaNIK61LylgclM5AAS1O5jwSitCSXSRxWwOI_OX9o
+
+###
+// types
+GET http://localhost:5000/api/master-data/types
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE4MDM3OTUsImV4cCI6MTY2MTgxMzc5NX0.qXDvLyOCyIzDjOidRDTmiT4plHoPuUvsA42qUoNxc-A
+
+
+###
+# types
+POST http://localhost:5000/api/master-data/types
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE4MDc0MjgsImV4cCI6MTY2MTgxNzQyOH0.dsYaNIK61LylgclM5AAS1O5jwSitCSXSRxWwOI_OX9o
+
+{
+    "name": "Hot",
+    "price": 0,
+    "duration": 0
+}
+
+###
+# types
+PUT http://localhost:5000/api/master-data/types/3
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE4MDc0MjgsImV4cCI6MTY2MTgxNzQyOH0.dsYaNIK61LylgclM5AAS1O5jwSitCSXSRxWwOI_OX9o
+
+{
+   
+    "price": 10
+   
+}
+
+####################################

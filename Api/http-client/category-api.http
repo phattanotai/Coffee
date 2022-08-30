@@ -1,0 +1,25 @@
+###
+// categories
+GET http://localhost:5000/api/categories
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE4MDc0MjgsImV4cCI6MTY2MTgxNzQyOH0.dsYaNIK61LylgclM5AAS1O5jwSitCSXSRxWwOI_OX9o
+
+###
+// categories
+GET http://localhost:5000/api/categories/5
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE4MDc0MjgsImV4cCI6MTY2MTgxNzQyOH0.dsYaNIK61LylgclM5AAS1O5jwSitCSXSRxWwOI_OX9o
+
+
+
+###
+# register
+POST http://localhost:5000/api/categories
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE4MDc0MjgsImV4cCI6MTY2MTgxNzQyOH0.dsYaNIK61LylgclM5AAS1O5jwSitCSXSRxWwOI_OX9o
+
+{
+    "name": "Coffee",
+     "22": "Coffee"
+}
+
