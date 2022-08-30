@@ -9,6 +9,7 @@ import "vuesax/dist/vuesax.css"; //Vuesax styles
 import "@/assets/css/argon-dashboard.css";
 import "@/assets/css/nucleo-icons.css";
 import "@/assets/css/custom.css";
+
 import "material-icons/iconfont/material-icons.css";
 import "vue-toast-notification/dist/index.css";
 import VueToast from "vue-toast-notification";

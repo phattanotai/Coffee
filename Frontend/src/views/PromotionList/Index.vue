@@ -15,27 +15,6 @@
                 v-if="clickedItem != ''"
                 class="w-50 d-flex align-items-center justify-content-end"
               >
-                <!-- <vs-button
-                  v-if="clickedItem.pro != 'add'"
-                  class="btn-addnew d-flex align-items-center justify-content-center"
-                  color="primary"
-                  type="filled"
-                >
-                  <img
-                    :src="require(`@/assets/images/edit_light.png`)"
-                    class="w-20"
-                  />
-                  แก้ไข</vs-button
-                >
-
-                <vs-button
-                  v-if="clickedItem.pro == 'add'"
-                  class="btn-addnew d-flex align-items-center justify-content-center"
-                  color="success"
-                  type="filled"
-                >
-                  <span class="material-icons"> save </span> บันทึก</vs-button
-                > -->
                 <vs-button
                   v-if="clickedItem.pro != 'add'"
                   @click="btnpopupDelete(clickedItem.index)"

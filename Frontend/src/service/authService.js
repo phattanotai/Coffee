@@ -3,8 +3,8 @@ import httpClient, { returnErrorData } from "./http-client";
 const login = async (loginData) => {
   try {
     const res = await httpClient
-      .post("/api/auth/local", {
-        identifier: loginData.username.trim(),
+      .post("/api/auth/login", {
+        username: loginData.username.trim(),
         password: loginData.password.trim(),
       })
       .catch((error) => {
@@ -14,8 +14,8 @@ const login = async (loginData) => {
           throw error;
         }
       });
-    if (res.data) {
-      return res.data;
+    if (res.data.status === 200) {
+      return res.data.data;
     } else {
       return false;
     }
@@ -34,8 +34,8 @@ const getUserInfo = async () => {
       }
     });
 
-    if (res.data) {
-      return res.data;
+    if (res.data.data.status === 200) {
+      return res.data.data;
     } else {
       return false;
     }

@@ -1,1 +1,1 @@
-VUE_APP_URL_API=URL
+VUE_APP_URL_API=http://localhost:5000

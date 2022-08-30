@@ -9,6 +9,11 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: "/coffee",
+      name: "Home",
+      component: () => import("../views/Home/Home"),
+    },
     // ======================
     // Blank Layout
     // ======================
@@ -65,11 +70,6 @@ const router = new VueRouter({
           name: "sort-management",
           component: () => import("../views/Sortmanagement/Index"),
         },
-        {
-          path: "/note",
-          name: "note",
-          component: () => import("../views/note/Index"),
-        },
       ],
     },
   ],
@@ -88,8 +88,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   let isAuthenticated = storage.checkToken();
   if (isAuthenticated) {
-    store.dispatch("fetchAccessToken");
-    store.dispatch("fetchUserData");
+    if (to.name !== "coffee") {
+      store.dispatch("fetchAccessToken");
+      store.dispatch("fetchUserData");
+    }
   }
   if (to.name !== "login" && !isAuthenticated) {
     next({ name: "login" });

@@ -108,8 +108,8 @@ import alertService from "@/service/alertService";
 export default {
   name: "Login",
   data: () => ({
-    username: process.env.NODE_ENV === "development" ? "tester" : "",
-    password: process.env.NODE_ENV === "development" ? "tester1234" : "",
+    username: process.env.NODE_ENV === "development" ? "admin" : "",
+    password: process.env.NODE_ENV === "development" ? "12345678" : "",
     disabledBtn: false,
     loading: null,
     backgroundLoading: "primary",

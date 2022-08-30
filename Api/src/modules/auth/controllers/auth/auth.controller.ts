@@ -75,8 +75,10 @@ export class AuthController {
           response.cookie('token', data.accessToken, {
             httpOnly: true,
           });
-
-          return data;
+          return {
+            status: 200,
+            data: data,
+          };
         }),
       );
     } catch (error) {

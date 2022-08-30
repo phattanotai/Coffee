@@ -84,32 +84,6 @@
                     @change="changePage"
                   ></vs-pagination>
                 </div>
-                <div id="gethub" class="mt-5" v-if="selectActive != ''">
-                  <UserCreditLog
-                    ref="UserCreditLog"
-                    v-if="tableCredit"
-                    :headerCard="bg_headerCard"
-                    :title="title"
-                  />
-                  <UserInfoLog
-                    ref="UserInfoLog"
-                    v-if="tableLogs"
-                    :headerCard="bg_headerCard"
-                    :title="title"
-                  />
-                  <UserTopUpLog
-                    ref="UserTopUpLog"
-                    v-if="tableTop"
-                    :headerCard="bg_headerCard"
-                    :title="title"
-                  />
-                  <UserReport
-                    ref="UserReport"
-                    v-if="tableReport"
-                    :headerCard="bg_headerCard"
-                    :title="title"
-                  />
-                </div>
               </div>
             </div>
           </div>
@@ -123,10 +97,6 @@
 import Navbar from "@/layout/Navbar";
 import notifyService from "../../service/notifyService";
 
-import UserCreditLog from "./UserCreditLog.vue";
-import UserInfoLog from "./UserInfoLog.vue";
-import UserReport from "./UserReport.vue";
-import UserTopUpLog from "./UserTopUpLog.vue";
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 
@@ -134,10 +104,6 @@ export default {
   name: "Userinformation",
   components: {
     Navbar,
-    UserCreditLog,
-    UserInfoLog,
-    UserReport,
-    UserTopUpLog,
   },
   data: () => ({
     bg_headerCard: "",
@@ -190,7 +156,7 @@ export default {
       this.$vs.loading.close();
     },
     changePage() {
-      this.fetchData();
+      // this.fetchData();
     },
     async getuser(t, i) {
       this.clearlist();
@@ -287,7 +253,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("UserInfo", ["getUserInfo"]),
+    ...mapGetters("UserInfo", ["getUserReport"]),
     userlist() {
       return this.users.filter((list) => {
         return list.username
@@ -297,12 +263,12 @@ export default {
     },
   },
   mounted() {
-    // this.setDefaultDate();
-    this.setWithDate(true);
-    this.setPage({
-      perPage: 30,
-      pageCount: 1,
-    });
+    // // this.setDefaultDate();
+    // this.setWithDate(true);
+    // this.setPage({
+    //   perPage: 30,
+    //   pageCount: 1,
+    // });
   },
 };
 </script>

@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -15,6 +16,8 @@ import { CreateUser } from '../models/dto/CreateUser.dto';
 import { UsersService } from '../services/users/users.service';
 import { Role } from '../models/enum/role.enum';
 import { UpdateUser } from '../models/dto/UpdateUser.dto';
+import { Request } from 'src/interfaces/ExpressReq.interface';
+import { Response } from 'express';
 
 @Controller('users')
 export class UserController {
@@ -121,6 +124,21 @@ export class UserController {
     } catch (error) {
       throw new InternalServerErrorException(
         'UserController->getRole ' + error.message,
+      );
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  getInfo(@Req() request: Request, @Res() response: Response) {
+    try {
+      return response.status(200).json({
+        status: 200,
+        data: request.user,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'UserController->getInfo ' + error.message,
       );
     }
   }

@@ -13,16 +13,13 @@ export default {
         throw error;
       });
       // check response data
+      console.log(loginDataRes);
       if (loginDataRes) {
-        if (!loginDataRes.userblocked) {
-          context.commit("updateAccessToken", loginDataRes.jwt);
-          context.commit("setUserData", loginDataRes.user);
-          storage.setToken(loginDataRes.jwt);
-          alertService.success("Login Success");
-          setTimeout(() => router.push("/"), 1500);
-        } else {
-          alertService.warning("user is blocked");
-        }
+        context.commit("updateAccessToken", loginDataRes.jwt);
+        context.commit("setUserData", loginDataRes.user);
+        storage.setToken(loginDataRes.jwt);
+        alertService.success("Login Success");
+        setTimeout(() => router.push("/"), 1500);
       } else {
         alertService.warning("Login Fail");
       }

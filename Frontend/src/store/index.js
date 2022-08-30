@@ -1,10 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import createPersistedState from 'vuex-persistedstate';
-import Announcements from './modules/announment.module';
-import dashboards from './modules/dashboard.module';
-import gameListAndProvider from './modules/providerAndGameList.module';
+import createPersistedState from "vuex-persistedstate";
+import gameListAndProvider from "./modules/providerAndGameList.module";
 
 // import module store
 import authModule from "./auth";
@@ -34,8 +32,6 @@ export default new Vuex.Store({
   modules: {
     auth: authModule,
     UserInfo,
-    Announcements,
-    dashboards,
-    gameListAndProvider
+    gameListAndProvider,
   },
 });
