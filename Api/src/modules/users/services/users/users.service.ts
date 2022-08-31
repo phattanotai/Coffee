@@ -31,11 +31,7 @@ export class UsersService {
 
               return from(this.userRepository.save(createdUserDto)).pipe(
                 map((savedUser: UserI) => {
-                  if (savedUser) {
-                    return 'create success';
-                  } else {
-                    return 'create fail';
-                  }
+                  return savedUser;
                 }),
               );
             }),
@@ -53,11 +49,7 @@ export class UsersService {
   update(id: number, createdUserDto: UpdateUser): Observable<string> {
     return from(this.userRepository.update(id, createdUserDto)).pipe(
       map((savedUser: any) => {
-        if (savedUser.affected) {
-          return 'update success';
-        } else {
-          return 'update fail';
-        }
+        return savedUser.affected;
       }),
     );
   }

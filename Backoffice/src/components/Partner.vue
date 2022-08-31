@@ -17,14 +17,13 @@
 export default {
   data: () => ({
     partners: [
-      { img: "airbnb.png" },
-      { img: "adidas.png" },
-      { img: "swords.png" },
-      { img: "castle.png" },
+      { img: "images/airbnb.png" },
+      { img: "images/adidas.png" },
+      { img: "images/swords.png" },
+      { img: "images/castle.png" },
     ],
   }),
 };
 </script>
 
-<style>
-</style>
+<style></style>

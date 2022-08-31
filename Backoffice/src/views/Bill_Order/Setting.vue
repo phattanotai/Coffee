@@ -346,7 +346,6 @@
 import Completecomponent from "@/layout/Popup/Complete";
 import Failcomponent from "@/layout/Popup/Fail";
 import { mapActions, mapGetters } from "vuex";
-import gameListProviderService from "../../service/providerAndGameListService";
 import notifyService from "../../service/notifyService";
 
 var moment = require("moment");
@@ -544,22 +543,7 @@ export default {
       }
     },
     uploadImage(fileBase64) {
-      return new Promise((resolve, reject) => {
-        gameListProviderService
-          .uploadGameProviderLisImg(fileBase64)
-          .then((resUpload) => {
-            if (resUpload[0]?.url) {
-              resolve(resUpload[0]?.url);
-            } else {
-              notifyService.error("ไม่สามารถอัปโหลดรูปภาพได้ !! ");
-              reject(false);
-            }
-          })
-          .catch((error) => {
-            notifyService.error("ไม่สามารถอัปโหลดรูปภาพได้ !! " + error);
-            reject(error);
-          });
-      });
+      return new Promise((resolve, reject) => {});
     },
     timeminus(t, type) {
       if (type == "start" && t == "h") {

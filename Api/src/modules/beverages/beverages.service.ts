@@ -24,7 +24,7 @@ export class BeveragesService {
 
   findAll() {
     try {
-      return from(this.beverageRepository.find());
+      return from(this.beverageRepository.find({ relations: ['category'] }));
     } catch (error) {
       throw { message: 'BeveragesService->findAll ' + error.message };
     }
@@ -42,7 +42,7 @@ export class BeveragesService {
     try {
       return from(this.beverageRepository.update(id, updateBeverageDto)).pipe(
         map((savedData: any) => {
-          return savedData;
+          return savedData.affected;
         }),
       );
     } catch (error) {

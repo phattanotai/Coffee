@@ -41,7 +41,6 @@
 <script>
 import Listcomponent from "@/views/Management/List";
 import Navbar from "@/layout/Navbar";
-import sortManageService from "../../service/sortManageService";
 import alertService from "../../service/alertService";
 import notifyService from "../../service/notifyService";
 import dayjs from "dayjs";
@@ -108,22 +107,6 @@ export default {
     },
     async fetchData() {
       try {
-        const dataRes = await sortManageService
-          .getSortManagement()
-          .catch((error) => {
-            throw error;
-          });
-        if (dataRes.data.attributes.gamelist.length) {
-          this.items = [];
-          dataRes.data.attributes.gamelist.forEach((element) => {
-            this.items.push({
-              game: element.title,
-              img: element.logo,
-            });
-          });
-
-          this.oldItems = this.items;
-        }
         this.closeLoading();
       } catch (error) {
         this.closeLoading();

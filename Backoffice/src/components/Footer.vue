@@ -5,7 +5,7 @@
         <v-col cols="12" xs="12" sm="6" md="4" class="pa-16">
           <v-toolbar color="transparent" flat>
             <v-badge color="#D5F0DB" dot>
-              <v-img src="1.png" contain width="30"></v-img>
+              <v-img src="images/1.png" contain width="30"></v-img>
             </v-badge>
 
             <v-toolbar-title class="ml-4">
@@ -75,5 +75,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

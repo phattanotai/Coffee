@@ -75,7 +75,6 @@ import ContentPromotioncomponent from "@/views/BeveragesList/Content";
 import Deletecomponent from "@/layout/Popup/DeleteForm";
 import Navbar from "@/layout/Navbar";
 import alertService from "../../service/alertService";
-import promotionService from "../../service/promotionService";
 import dayjs from "dayjs";
 import notifyService from "../../service/notifyService";
 
@@ -243,35 +242,6 @@ export default {
     },
     async fetchData() {
       try {
-        const dataRes = await promotionService
-          .getPromotion({
-            perPage: this.perPage,
-            currentPage: this.currentPage,
-          })
-          .catch((error) => {
-            throw error;
-          });
-        if (dataRes.data.length) {
-          this.datalists = [];
-          dataRes.data.forEach((promotion) => {
-            const { attributes } = promotion;
-            this.datalists.push({
-              i: promotion.id,
-              promotion: attributes.name,
-              status: attributes.active,
-              img: attributes.picture,
-              detail: attributes.description,
-              date: {
-                start: attributes.promotion_start_datetime,
-                end: attributes.promotion_end_datetime,
-              },
-            });
-          });
-          this.pageTotal = dataRes.meta.pagination.total;
-          this.page = dataRes.meta.pagination.page;
-          this.pageCount = dataRes.meta.pagination.pageCount;
-        }
-
         this.closeLoading();
       } catch (error) {
         this.closeLoading();

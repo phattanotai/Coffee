@@ -28,10 +28,17 @@ export class UserController {
     try {
       return this.userService.create(createdUserDto).pipe(
         map((saveData) => {
-          return response.status(200).json({
-            status: 200,
-            message: saveData,
-          });
+          if (saveData) {
+            return response.status(200).json({
+              status: 200,
+              message: 'create success',
+            });
+          } else {
+            return response.status(201).json({
+              status: 201,
+              message: 'create fail',
+            });
+          }
         }),
       );
     } catch (error) {
@@ -44,17 +51,24 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(
-    @Res() response,
+    @Res() response: Response,
     @Param('id') id: number,
     @Body() createdUserDto: UpdateUser,
   ) {
     try {
       return this.userService.update(id, createdUserDto).pipe(
         map((updateStatus: any) => {
-          return response.status(200).json({
-            status: 200,
-            message: updateStatus,
-          });
+          if (updateStatus) {
+            return response.status(200).json({
+              status: 200,
+              message: 'update success',
+            });
+          } else {
+            return response.status(201).json({
+              status: 201,
+              message: 'update fail',
+            });
+          }
         }),
       );
     } catch (error) {
@@ -66,7 +80,7 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Res() response) {
+  findAll(@Res() response: Response) {
     try {
       return this.userService.findAll().pipe(
         map((users) => {
@@ -92,7 +106,7 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  find(@Res() response, @Param('id') id: number) {
+  find(@Res() response: Response, @Param('id') id: number) {
     try {
       return this.userService.findOne(id).pipe(
         map((user) => {

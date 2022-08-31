@@ -19,7 +19,6 @@
 
 <script>
 import UserCard from "./UserCard.vue";
-import dashboardService from "../../../service/dashboardService";
 import dataTast from "./testData";
 export default {
   name: "SummaryUser",
@@ -50,15 +49,6 @@ export default {
   },
   async mounted() {
     try {
-      let resData = await dashboardService
-        .getDashboardSummaryUser()
-        .catch((error) => {
-          throw error;
-        });
-
-      if (resData) {
-        this.setData(resData);
-      }
     } catch (error) {
       this.setDataTest();
       console.log(error);

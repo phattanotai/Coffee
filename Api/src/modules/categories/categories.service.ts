@@ -25,7 +25,7 @@ export class CategoriesService {
     }
   }
 
-  findAll(): any {
+  findAll() {
     try {
       return from(this.cateRepository.find());
     } catch (error) {

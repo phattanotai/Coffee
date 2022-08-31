@@ -16,19 +16,28 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxL
 # add
 POST http://localhost:5000/api/beverages
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE4MDc0MjgsImV4cCI6MTY2MTgxNzQyOH0.dsYaNIK61LylgclM5AAS1O5jwSitCSXSRxWwOI_OX9o
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE5MjY3MjEsImV4cCI6MTY2MTkzNjcyMX0.5_L9CJmABRxaZkwzj4WKwK7bgGN2-ckSM7e5umBTkTk
 
 {
-    "name": "Coffee",
     "duration": 35,
-    "price": 25,
-    "img": "logo192b7f8670f-095d-46df-8786-8dd8d06cc14e.png",
-    "name": "Espresso",
+    "price": 30,
+    "img": "public/images/coke-2.jpeg",
+    "name": "Soda",
      "category": {
-        "id": 5,
-        "name": "Coffee",
-        "createAt": "2022-08-29T07:19:24.000Z",
-        "updateAt": "2022-08-29T07:19:24.000Z"
+        "id": 3
     }
 }
 
+###
+# update
+PUT http://localhost:5000/api/beverages/3
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE5MjY3MjEsImV4cCI6MTY2MTkzNjcyMX0.5_L9CJmABRxaZkwzj4WKwK7bgGN2-ckSM7e5umBTkTk
+
+{
+    "duration": 35,
+    "price": 30,
+    "img": "public/images/7ec5a4dd661a42f7bdb32884ab8c41ea.webp"
+   
+    
+}

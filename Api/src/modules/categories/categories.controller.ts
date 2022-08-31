@@ -9,6 +9,7 @@ import {
   Req,
   UseGuards,
   InternalServerErrorException,
+  Res,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -16,6 +17,8 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 // import { HttpService } from '@nestjs/axios';
 import { Request } from '../../interfaces/ExpressReq.interface';
+import { map } from 'rxjs';
+import { Response } from 'express';
 
 @Controller('categories')
 export class CategoriesController {
@@ -39,11 +42,25 @@ export class CategoriesController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(): any {
+  findAll(@Res() response: Response): any {
     try {
-      return this.categoriesService.findAll();
+      return this.categoriesService.findAll().pipe(
+        map((cate) => {
+          if (cate.length) {
+            return response.status(200).json({
+              status: 200,
+              data: cate,
+            });
+          } else {
+            return response.status(203).json({
+              status: 203,
+              data: [],
+            });
+          }
+        }),
+      );
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->findAll ' + error.message,
@@ -53,9 +70,23 @@ export class CategoriesController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Res() response: Response, @Param('id') id: string) {
     try {
-      return this.categoriesService.findOne(+id);
+      return this.categoriesService.findOne(+id).pipe(
+        map((cate) => {
+          if (cate) {
+            return response.status(200).json({
+              status: 200,
+              data: cate,
+            });
+          } else {
+            return response.status(203).json({
+              status: 203,
+              data: [],
+            });
+          }
+        }),
+      );
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->findOne ' + error.message,

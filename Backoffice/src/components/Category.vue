@@ -17,7 +17,7 @@
               class="d-flex align-center rounded-lg mx-2"
               dark
               height="180"
-              @click="toggle"
+              @click="toggle(), clickCategory(cetegory)"
               flat
             >
               <v-row>
@@ -51,18 +51,16 @@
 
 <script>
 export default {
-  data: () => ({
-    categories: [
-      { img: "01.png", title: "Meat & Fish" },
-      { img: "02.png", title: "Vegetables" },
-      { img: "3.png", title: "Medicine" },
-      { img: "4.png", title: "Baby" },
-      { img: "5.png", title: "Office" },
-      { img: "6.png", title: "Beauty" },
-    ],
-  }),
+  props: {
+    categories: [],
+  },
+  data: () => ({}),
+  methods: {
+    clickCategory(e) {
+      this.$emit("clickCategory", e);
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>
