@@ -3,10 +3,6 @@ GET http://localhost:5000/api/auth/refreshToken
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoidGVzdDEyMzQiLCJwYXNzd29yZCI6IjEyMzQiLCJuYW1lIjoidGVzdCJ9LCJpYXQiOjE2NTM2Mzk4MTQsImV4cCI6MTY1MzY0OTgxNH0.5kfT6CszVh_KA8olgZn42fBf9EO6_QPNS6YdbYmGCzw
 
-{
-    "name": "Holaddd",
-    "job": "programmer"
-}
 
 ###
 // login

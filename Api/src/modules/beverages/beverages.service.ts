@@ -8,8 +8,10 @@ import { TbBeverage } from './entities/beverage.entity';
 
 @Injectable()
 export class BeveragesService {
-  @InjectRepository(TbBeverage)
-  private beverageRepository: Repository<TbBeverage>;
+  constructor(
+    @InjectRepository(TbBeverage)
+    private beverageRepository: Repository<TbBeverage>,
+  ) {}
   create(createBeverageDto: CreateBeverageDto) {
     try {
       return from(this.beverageRepository.save(createBeverageDto)).pipe(
@@ -52,7 +54,11 @@ export class BeveragesService {
 
   remove(id: number) {
     try {
-      return `This action removes a #${id} category`;
+      return from(this.beverageRepository.delete(id)).pipe(
+        map((savedData: any) => {
+          return savedData.affected;
+        }),
+      );
     } catch (error) {
       throw { message: 'BeveragesService->remove ' + error.message };
     }

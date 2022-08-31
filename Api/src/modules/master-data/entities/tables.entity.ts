@@ -12,8 +12,8 @@ export class TbTables {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  name: string;
+  @Column({ unique: true })
+  number: string;
 
   @Column({ type: 'timestamp', default: () => 'now()' })
   createAt: Date;

@@ -45,7 +45,7 @@ export class TypesService {
     try {
       return from(this.typesRepository.update(id, updateTypesDto)).pipe(
         map((savedData: any) => {
-          return savedData;
+          return savedData.affected;
         }),
       );
     } catch (error) {

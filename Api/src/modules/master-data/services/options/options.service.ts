@@ -45,7 +45,7 @@ export class OptionsService {
     try {
       return from(this.optionsRepository.update(id, updateOptionsDto)).pipe(
         map((savedData: any) => {
-          return savedData;
+          return savedData.affected;
         }),
       );
     } catch (error) {

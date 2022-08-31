@@ -27,9 +27,9 @@ export class LoggingInterceptor implements NestInterceptor {
         // can write file
         // can insert into database
         this.logger.error(
-          `Error Response to ${ip} method ${method} from ${url} ${err}`,
+          `Error Response to ${ip} method ${method} from ${url} ${err.message}`,
         );
-        return throwError(() => err);
+        return throwError(() => err.message);
       }),
     );
   }

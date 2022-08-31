@@ -3,12 +3,13 @@ import path = require('path');
 import { v4 as uuidv4 } from 'uuid';
 import { Request } from 'express';
 
-type validMimeType = 'image/png' | 'image/jpg' | 'image/jpeg';
+type validMimeType = 'image/png' | 'image/jpg' | 'image/jpeg' | 'image/webp';
 
 const validMimeTypes: validMimeType[] = [
   'image/png',
   'image/jpg',
   'image/jpeg',
+  'image/webp',
 ];
 
 export const storage = (dest: string) => {
@@ -19,6 +20,7 @@ export const storage = (dest: string) => {
         const filename: string =
           path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
         const extension: string = path.parse(file.originalname).ext;
+
         cb(null, `${filename}${extension}`);
       },
     }),

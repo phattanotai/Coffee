@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
@@ -29,7 +28,7 @@ import { map } from 'rxjs';
 export class BeveragesController {
   constructor(private readonly beveragesService: BeveragesService) {}
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post('image')
   @UseInterceptors(FileInterceptor('image', storage(uploadConfig.imagesPath)))
   uploadImage(@UploadedFile() file: Express.Multer.File) {
@@ -37,12 +36,12 @@ export class BeveragesController {
       if (!file) {
         return {
           message: 'invalid file',
-          status: false,
+          status: 201,
         };
       }
       return {
         message: 'file has been uploaded',
-        status: true,
+        status: 200,
         path: file.path,
       };
     } catch (error) {
@@ -88,11 +87,11 @@ export class BeveragesController {
   findAll(@Res() response: Response) {
     try {
       return this.beveragesService.findAll().pipe(
-        map((beverages) => {
-          if (beverages.length) {
+        map((data) => {
+          if (data.length) {
             return response.status(200).json({
               status: 200,
-              data: beverages,
+              data: data,
             });
           } else {
             return response.status(203).json({
@@ -171,7 +170,21 @@ export class BeveragesController {
   @Delete(':id')
   remove(@Res() response: Response, @Param('id') id: string) {
     try {
-      return this.beveragesService.remove(+id);
+      return this.beveragesService.remove(+id).pipe(
+        map((data: any) => {
+          if (data) {
+            return response.status(200).json({
+              status: 200,
+              message: 'delete success',
+            });
+          } else {
+            return response.status(201).json({
+              status: 201,
+              message: 'delete fail',
+            });
+          }
+        }),
+      );
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->remove ' + error.message,

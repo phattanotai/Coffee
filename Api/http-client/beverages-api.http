@@ -16,15 +16,17 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxL
 # add
 POST http://localhost:5000/api/beverages
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE5MjY3MjEsImV4cCI6MTY2MTkzNjcyMX0.5_L9CJmABRxaZkwzj4WKwK7bgGN2-ckSM7e5umBTkTk
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE5NzM4MDUsImV4cCI6MTY2MTk4MzgwNX0.OeiQi-Xa9HeKnBGfMIFoUlVZ0cZi__3Ffjtt2pDCzho
+
+
 
 {
-    "duration": 35,
+    "duration": 30,
     "price": 30,
-    "img": "public/images/coke-2.jpeg",
-    "name": "Soda",
-     "category": {
-        "id": 3
+    "img": "public/images/blob429a25ad-d134-49e2-bec0-9072dd00aef4",
+    "name": "test",
+    "category": {
+        "id": 1
     }
 }
 
@@ -41,3 +43,10 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxL
    
     
 }
+
+###
+# delete
+DELETE http://localhost:5000/api/beverages/9
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE5ODcwNDgsImV4cCI6MTY2MTk5NzA0OH0.OklXeyny9r023bADQ-AyRir7I2goxKbPF6RvfLvGbBE
+

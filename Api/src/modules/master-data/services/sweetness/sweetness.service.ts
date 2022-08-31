@@ -45,7 +45,7 @@ export class SweetnessService {
     try {
       return from(this.sweetnessRepository.update(id, updateSweetnessDto)).pipe(
         map((savedData: any) => {
-          return savedData;
+          return savedData.affected;
         }),
       );
     } catch (error) {

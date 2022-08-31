@@ -100,6 +100,7 @@ export class AuthController {
             httpOnly: true,
           });
           return {
+            status: 200,
             refreshToken,
           };
         }),

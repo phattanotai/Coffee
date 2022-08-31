@@ -1,17 +1,21 @@
 ###
-// wallet
-POST http://localhost:5000/api/wallet/walletAddress
+// orders
+GET http://localhost:5000/api/orders
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiSG9sYSIsInBhc3N3b3JkIjoicHJvZ3JhbW1lciJ9LCJpYXQiOjE2NTM4Nzg4MjcsImV4cCI6MTY1Mzg4ODgyN30.gaSRWtbLQjECLCZG8oH5YWPC6p5py-3--EuwTmao8v4
 
-{
-    "uuid": "Hola",
-    "network": "programmer"
-}
 
 ###
-// wallet
-POST http://localhost:5000/api/wallet/walletList
+// orders
+GET http://localhost:5000/api/orders/status
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiSG9sYSIsInBhc3N3b3JkIjoicHJvZ3JhbW1lciJ9LCJpYXQiOjE2NTM4Nzg4MjcsImV4cCI6MTY1Mzg4ODgyN30.gaSRWtbLQjECLCZG8oH5YWPC6p5py-3--EuwTmao8v4
+
+
+
+###
+// orders
+POST http://localhost:5000/api/orders
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiSG9sYSIsInBhc3N3b3JkIjoicHJvZ3JhbW1lciJ9LCJpYXQiOjE2NTM4Nzg4MjcsImV4cCI6MTY1Mzg4ODgyN30.gaSRWtbLQjECLCZG8oH5YWPC6p5py-3--EuwTmao8v4
 

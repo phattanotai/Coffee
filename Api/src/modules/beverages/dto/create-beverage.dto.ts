@@ -13,11 +13,9 @@ export class CreateBeverageDto {
   @Length(0, 50)
   name: string;
 
-  @IsNumber()
   @IsNotEmpty()
   duration: number;
 
-  @IsNumber()
   @IsNotEmpty()
   price: number;
 

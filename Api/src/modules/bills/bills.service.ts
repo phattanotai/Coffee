@@ -1,26 +1,62 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBillDto } from './dto/create-bill.dto';
-import { UpdateBillDto } from './dto/update-bill.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { from, map } from 'rxjs';
+import { Repository } from 'typeorm';
+import { CreateBillDto } from './models/dto/create-bill.dto';
+import { UpdateBillDto } from './models/dto/update-bill.dto';
+import { TbBill } from './models/entities/bill.entity';
 
 @Injectable()
 export class BillsService {
+  constructor(
+    @InjectRepository(TbBill)
+    private billeRepository: Repository<TbBill>,
+  ) {}
   create(createBillDto: CreateBillDto) {
-    return 'This action adds a new bill';
+    try {
+      return from(this.billeRepository.save(createBillDto)).pipe(
+        map((savedData: any) => {
+          return savedData;
+        }),
+      );
+    } catch (error) {
+      throw { message: 'BillsService->create' + error.message };
+    }
   }
 
   findAll() {
-    return `This action returns all bills`;
+    try {
+      return from(this.billeRepository.find());
+    } catch (error) {
+      throw { message: 'BillsService->findAll ' + error.message };
+    }
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} bill`;
+    try {
+      return from(this.billeRepository.findOne({ id }));
+    } catch (error) {
+      throw { message: 'BillsService->findOne ' + error.message };
+    }
   }
 
   update(id: number, updateBillDto: UpdateBillDto) {
-    return `This action updates a #${id} bill`;
+    try {
+      return from(this.billeRepository.update(id, updateBillDto)).pipe(
+        map((savedData: any) => {
+          return savedData.affected;
+        }),
+      );
+    } catch (error) {
+      throw { message: 'BillsService->update ' + error.message };
+    }
   }
 
   remove(id: number) {
-    return `This action removes a #${id} bill`;
+    try {
+      return `This action removes a #${id} category`;
+    } catch (error) {
+      throw { message: 'BillsService->remove ' + error.message };
+    }
   }
 }

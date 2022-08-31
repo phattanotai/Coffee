@@ -25,6 +25,12 @@ export class TbBeverage {
   @Column()
   img: string;
 
+  @Column({ type: 'boolean', default: true })
+  selectType: boolean;
+
+  @Column({ type: 'boolean', default: true })
+  selectSweetness: boolean;
+
   @Column({ type: 'timestamp', default: () => 'now()' })
   createAt: Date;
 
