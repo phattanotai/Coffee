@@ -22,7 +22,13 @@ export class TbUsers {
   role: Role;
 
   @Column({ nullable: true })
-  imagePath: string;
+  img: string;
+
+  @Column({ type: 'timestamp', default: () => 'now()' })
+  createAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'now()' })
+  updateAt: Date;
 
   @BeforeInsert()
   emailToLowerCase() {

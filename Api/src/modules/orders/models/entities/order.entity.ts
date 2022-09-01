@@ -23,6 +23,15 @@ export class TbOrder {
   price: number;
 
   @Column()
+  sweetness: string;
+
+  @Column()
+  type: string;
+
+  @Column()
+  option: string;
+
+  @Column()
   total: number;
 
   @Column({ type: 'enum', enum: Status, default: Status.WAITING })

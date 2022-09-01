@@ -12,7 +12,7 @@ export class addUsers1661766545118 implements MigrationInterface {
           '$2b$12$7uwBXHtz5sX8Z1pCb/JyEuUC3O8lnl1UTicPKbpegB658rcfmm6pS',
         name: 'admin',
         email: 'admin@gamil.com',
-        imagePath: 'sdsdsd',
+        img: 'image',
       },
     ]);
   }
