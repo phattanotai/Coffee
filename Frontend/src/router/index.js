@@ -54,7 +54,7 @@ const router = new VueRouter({
         {
           path: "/bill-order",
           name: "bill-order",
-          component: () => import("../views/Bill_Order/Index"),
+          component: () => import("../views/BillOrder/Index"),
         },
         {
           path: "/beverages-list",

@@ -10,6 +10,7 @@ import {
   UseGuards,
   InternalServerErrorException,
   Res,
+  Put,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -95,15 +96,30 @@ export class CategoriesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':id')
+  @Put(':id')
   update(
+    @Res() response: Response,
     @Req() request: Request,
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     try {
       updateCategoryDto.updateByUser = request.user;
-      return this.categoriesService.update(+id, updateCategoryDto);
+      return this.categoriesService.update(+id, updateCategoryDto).pipe(
+        map((updateStatus: any) => {
+          if (updateStatus) {
+            return response.status(200).json({
+              status: 200,
+              message: 'update success',
+            });
+          } else {
+            return response.status(201).json({
+              status: 201,
+              message: 'update fail',
+            });
+          }
+        }),
+      );
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->update ' + error.message,
@@ -113,9 +129,24 @@ export class CategoriesController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Res() response: Response, @Param('id') id: string) {
     try {
-      return this.categoriesService.remove(+id);
+      console.log(1111, id);
+      return this.categoriesService.remove(+id).pipe(
+        map((data: any) => {
+          if (data) {
+            return response.status(200).json({
+              status: 200,
+              message: 'delete success',
+            });
+          } else {
+            return response.status(201).json({
+              status: 201,
+              message: 'delete fail',
+            });
+          }
+        }),
+      );
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->remove ' + error.message,

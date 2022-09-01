@@ -1,13 +1,21 @@
 <template>
   <div>
     <div class="px-3 mb-4">
-      <vs-button @click="lists.length != 0 ? $emit('clickedItem', {
-                  game: 'add',
-                  type: 'game',
-                  index: '',
-                  img: require(`@/assets/images/mockup.jpg`),
-                  b: lists[0].brand
-                }) : ''"  class="btn-addnew w-100" color="primary" type="filled"
+      <vs-button
+        @click="
+          lists.length != 0
+            ? $emit('clickedItem', {
+                game: 'add',
+                type: 'game',
+                index: '',
+                img: require(`@/assets/images/mockup.jpg`),
+                b: lists[0].brand,
+              })
+            : ''
+        "
+        class="btn-addnew w-100"
+        color="primary"
+        type="filled"
         ><span class="material-icons"> add </span> Add New Game</vs-button
       >
       <vs-input
@@ -40,11 +48,7 @@
               class="d-flex align-items-center justify-content-center"
               :class="{ hot: 2 == data.type }"
             >
-              <img
-                :src="data.img"
-                class="card--logo"
-                :alt="data.game"
-              />
+              <img :src="data.img" class="card--logo" :alt="data.game" />
             </td>
             <td class="name-games">
               {{ data.game }}
@@ -66,8 +70,8 @@
 
 <script>
 export default {
-  name: "Table_gamelist",
-  props: ["valueProvide", "datalists","bbrand"],
+  name: "TableOrdercomponent",
+  props: ["valueProvide", "datalists", "bbrand"],
   data: () => ({
     input_searchGame: "",
   }),

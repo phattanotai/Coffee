@@ -1049,3 +1049,32 @@ span.vs-button-text {
 .err_editor .toastui-editor-defaultUI {
   border: 1px solid #d80101 !important;
 }
+
+
+
+
+.vs-popup--content {
+  margin: 0;
+}
+/* width */
+.vs-popup--content::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Track */
+.vs-popup--content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+.vs-popup--content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(99, 97, 97, 0.562);
+}
+
+/* Handle on hover */
+.vs-popup--content::-webkit-scrollbar-thumb:hover {
+  background: black;
+}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar navbar-page="Sort management" />
+    <Navbar navbar-page="Master Data" />
     <div id="Sortmanagement" class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
@@ -9,7 +9,7 @@
               class="card-header card-header-card d-flex align-items-center bg-gray-90"
             >
               <div class="w-50">
-                <h5 class="mb-0">Sort management / เรียงลำดับค่ายเกม</h5>
+                <h5 class="mb-0">จัดการข้อมูล Master Data</h5>
               </div>
               <div
                 class="w-50 d-flex align-items-center justify-content-end btn-setting"

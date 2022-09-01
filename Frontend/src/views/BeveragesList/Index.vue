@@ -1,6 +1,6 @@
 <template>
-  <div id="promotionList">
-    <Navbar navbar-page="Promotion List" />
+  <div>
+    <Navbar navbar-page="Beverages List" />
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
@@ -9,7 +9,7 @@
               class="card-header card-header-card d-flex align-items-center bg-gray-90"
             >
               <div class="w-50">
-                <h5 class="mb-0">Promotion List / โปรโมชันต่างๆ</h5>
+                <h5 class="mb-0">Beverages List</h5>
               </div>
               <div
                 v-if="clickedItem != ''"
@@ -61,7 +61,6 @@
       </div>
     </div>
     <Deletecomponent
-      id="popupDelPromption"
       :valueId="idDel"
       :openDelModal="this.openDelModal"
       @Item="getdeleteItem"
@@ -119,7 +118,6 @@ export default {
     // getdeleterItem emit from Deletecomponent
     async getdeleteItem(id) {
       try {
-        alert(id);
         this.openLoading();
         const resData = await beveragesService
           .deleteBeverages(id)
@@ -128,7 +126,7 @@ export default {
           });
         if (resData) {
           notifyService.Success(`Delete data  Success !!`);
-          // this.fetchData();
+          this.fetchData();
         }
       } catch (error) {
         alertService.error(error.message);
@@ -229,31 +227,3 @@ export default {
   },
 };
 </script>
-
-<style>
-#popupDelPromption .vs-popup--content {
-  margin: 0;
-}
-/* width */
-#popupDelPromption .vs-popup--content::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-
-/* Track */
-#popupDelPromption .vs-popup--content::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
-}
-
-/* Handle */
-#popupDelPromption .vs-popup--content::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: rgba(99, 97, 97, 0.562);
-}
-
-/* Handle on hover */
-#popupDelPromption .vs-popup--content::-webkit-scrollbar-thumb:hover {
-  background: black;
-}
-</style>

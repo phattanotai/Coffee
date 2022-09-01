@@ -79,7 +79,7 @@ import Completecomponent from "@/layout/Popup/Complete";
 import Failcomponent from "@/layout/Popup/Fail";
 
 export default {
-  name: "Table_gameprovider",
+  name: "TableBillcomponent",
   props: ["listprovider", "gamelists"],
   components: {
     Completecomponent,
@@ -113,8 +113,8 @@ export default {
     datalists() {
       return this.listprovider.filter((list) => {
         return list.attributes?.title
-        .toLowerCase()
-        .includes(this.input_searchCamp);
+          .toLowerCase()
+          .includes(this.input_searchCamp);
       });
     },
   },

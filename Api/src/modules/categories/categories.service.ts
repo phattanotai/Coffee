@@ -55,9 +55,13 @@ export class CategoriesService {
 
   remove(id: number) {
     try {
-      return `This action removes a #${id} category`;
+      return from(this.cateRepository.delete(id)).pipe(
+        map((savedData: any) => {
+          return savedData.affected;
+        }),
+      );
     } catch (error) {
-      throw { message: 'CategoriesService->remove ' + error.message };
+      throw { message: 'BeveragesService->remove ' + error.message };
     }
   }
 }
