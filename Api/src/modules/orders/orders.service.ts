@@ -24,9 +24,31 @@ export class OrdersService {
     }
   }
 
+  createAll(createOrderDto: CreateOrderDto[]) {
+    try {
+      return from(this.orderRepository.save(createOrderDto)).pipe(
+        map((savedData: any) => {
+          return savedData;
+        }),
+      );
+    } catch (error) {
+      throw { message: 'OrdersService->create' + error.message };
+    }
+  }
+
   findAll() {
     try {
-      return from(this.orderRepository.find());
+      return from(
+        this.orderRepository.find({ relations: ['bill', 'beverage'] }),
+      );
+    } catch (error) {
+      throw { message: 'OrdersService->findAll ' + error.message };
+    }
+  }
+
+  find(param: any) {
+    try {
+      return from(this.orderRepository.find(param));
     } catch (error) {
       throw { message: 'OrdersService->findAll ' + error.message };
     }

@@ -20,6 +20,10 @@ export class CreateOrderDto {
   @IsNotEmpty()
   price: number;
 
+  @IsNumber()
+  @IsNotEmpty()
+  total: number;
+
   @IsString()
   @IsNotEmpty()
   status: Status;

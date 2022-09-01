@@ -31,7 +31,6 @@
             {{ (item.price + item.afterPrice) * item.bpm }} บาท
           </v-list-item-content>
         </template>
-
         <v-list-item>
           <v-list-item-content class="pt-5">
             <v-card-actions class="mx-2 mt-n4">
@@ -67,12 +66,24 @@
           </v-list-item-content>
         </v-list-item>
       </v-list-group>
+
+      <v-list-item-group color="primary" class="mt-6 ml-12">
+        <v-list-item>
+          <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
+
+          <v-list-item-content> <h3>รวม</h3> </v-list-item-content>
+          <v-list-item-content
+            ><h3>{{ getAmount }}</h3>
+          </v-list-item-content>
+          <v-list-item-content><h3>บาท</h3> </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
     </v-list>
 
     <v-dialog v-model="dialogOption" width="500">
       <v-card>
         <v-card-title class="text-h5 grey lighten-2"> Options </v-card-title>
-
         <v-container fluid v-if="product.selectType">
           <hr />
           <v-radio-group v-model="product.type" row>
@@ -168,7 +179,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("Shopping", ["getOrders"]),
+    ...mapGetters("Shopping", ["getOrders", "getAmount"]),
   },
 };
 </script>

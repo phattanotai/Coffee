@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <Navbar :sumOrder="getSumOrder" :tables="tables" @showOrder="showOrder" />
+    <Navbar
+      :sumOrder="getSumOrder"
+      :tables="tables"
+      @showOrder="showOrder"
+      @showHistory="showHistory"
+    />
     <v-container fluid>
       <v-row>
         <v-col cols="12">
@@ -151,7 +156,7 @@
           hide-overlay
           transition="dialog-top-transition"
         >
-          <v-card>
+          <v-card v-if="dialogContent === 'order'">
             <v-toolbar dark color="primary">
               <v-btn icon dark @click="dialog = false">
                 <v-icon>mdi-close</v-icon>
@@ -165,7 +170,26 @@
 
             <Order :types="types" :sweetness="sweetness" :options="options" />
           </v-card>
+          <v-card v-if="dialogContent === 'history'">
+            <v-toolbar dark color="primary">
+              <v-btn icon dark @click="dialog = false">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+              <v-toolbar-title>History</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+            <History :orderList="orderList" :bill="bill" />
+          </v-card>
         </v-dialog>
+        <!-- alert -->
+        <v-snackbar v-model="snackbar" timeout="2000" shaped>
+          {{ text }}
+          <template v-slot:action="{ attrs }">
+            <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
       </v-row>
     </v-container>
     <Footer />
@@ -182,16 +206,29 @@ import Client from "../../components/Client.vue";
 import Partner from "../../components/Partner.vue";
 
 import Order from "./Order.vue";
+import History from "./History.vue";
 
 import categoryService from "../../service/categoryService";
 import beveragesService from "../../service/beveragesService";
 import masterDataService from "../../service/masterDataService";
+import ordersService from "../../service/ordersService";
 import { URL_ENDPOINT } from "../../service/http-client";
 
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Home",
+  components: {
+    Navbar,
+    Footer,
+    Category,
+    Product,
+    Pack,
+    Client,
+    Partner,
+    Order,
+    History,
+  },
   data: () => ({
     toggle_exclusive: 1,
     categories: [{ id: 0, img: "images/3.png", title: "All" }],
@@ -205,29 +242,35 @@ export default {
     types: [],
     tables: [],
     sweetness: [],
+    snackbar: false,
+    text: "",
+    dialogContent: "order",
+    orderList: [],
+    bill: {},
   }),
-  components: {
-    Navbar,
-    Footer,
-    Category,
-    Product,
-    Pack,
-    Client,
-    Partner,
-    Order,
-  },
+
   methods: {
     ...mapActions("Shopping", ["addOrder", "createBills"]),
     comfirmOrder() {
-      // this.dialog = false;
-      this.createBills();
+      if (!this.getTable) {
+        this.text = "กรุณาระบุหมายเลขโต๊ะ";
+        this.snackbar = true;
+      } else {
+        this.dialog = false;
+        this.createBills();
+      }
     },
     onShopping(order) {
-      order.id = Date.now();
-      this.addOrder(order);
-      setTimeout(() => {
-        this.beverage = JSON.parse(this.beverageS);
-      }, 1000);
+      if (!this.getTable) {
+        this.text = "กรุณาระบุหมายเลขโต๊ะ";
+        this.snackbar = true;
+      } else {
+        order.id = Date.now();
+        this.addOrder(order);
+        setTimeout(() => {
+          this.beverage = JSON.parse(this.beverageS);
+        }, 1000);
+      }
     },
     clickCategory(e) {
       this.categoryId = e.id;
@@ -237,6 +280,16 @@ export default {
     },
     showOrder() {
       this.dialog = true;
+      this.dialogContent = "order";
+    },
+    async showHistory() {
+      const id = this.getBillId || localStorage.getItem("billId");
+      this.orderList = await ordersService.getOrdersByBill(id);
+      this.bill = this.orderList[0].bill;
+      if (this.bill.status === "waiting" || this.bill.status === "producing") {
+        this.dialog = true;
+        this.dialogContent = "history";
+      }
     },
     async fatchBeverages() {
       this.beverage = [];
@@ -281,7 +334,7 @@ export default {
     this.sweetness = await masterDataService.getSweetness();
   },
   computed: {
-    ...mapGetters("Shopping", ["getSumOrder"]),
+    ...mapGetters("Shopping", ["getSumOrder", "getTable", "getBillId"]),
   },
 };
 </script>

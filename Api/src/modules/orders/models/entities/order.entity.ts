@@ -22,6 +22,9 @@ export class TbOrder {
   @Column()
   price: number;
 
+  @Column()
+  total: number;
+
   @Column({ type: 'enum', enum: Status, default: Status.WAITING })
   status: Status;
 

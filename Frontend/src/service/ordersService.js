@@ -18,12 +18,47 @@ const createOrder = async (createData) => {
   }
 };
 
+// create
+const createOrderAll = async (createData) => {
+  try {
+    const res = await httpClient
+      .post("/api/orders/all", createData)
+      .catch((error) => {
+        throw checkStatusError(error);
+      });
+    if (res.data.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw returnErrorData(error, "updateSortManagement");
+  }
+};
 // get
 const getOrders = async () => {
   try {
     const res = await httpClient.get("/api/orders").catch((error) => {
       throw checkStatusError(error);
     });
+    if (res.data.status === 200) {
+      return res.data.data;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw returnErrorData(error, "getTypes");
+  }
+};
+
+// get
+const getOrdersByBill = async (id) => {
+  try {
+    const res = await httpClient
+      .get("/api/orders/byBill/" + id)
+      .catch((error) => {
+        throw checkStatusError(error);
+      });
     if (res.data.status === 200) {
       return res.data.data;
     } else {
@@ -70,7 +105,9 @@ const updateOrder = async (updateData) => {
 
 export const func = {
   getOrders,
+  getOrdersByBill,
   createOrder,
+  createOrderAll,
   updateOrder,
   getOrderStatus,
 };

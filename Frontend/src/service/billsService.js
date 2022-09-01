@@ -9,7 +9,7 @@ const createBill = async (createData) => {
         throw checkStatusError(error);
       });
     if (res.data.status === 200) {
-      return true;
+      return res.data.data;
     } else {
       return false;
     }
@@ -22,6 +22,21 @@ const createBill = async (createData) => {
 const getBills = async () => {
   try {
     const res = await httpClient.get("/api/bills").catch((error) => {
+      throw checkStatusError(error);
+    });
+    if (res.data.status === 200) {
+      return res.data.data;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw returnErrorData(error, "getTypes");
+  }
+};
+
+const getBillById = async (id) => {
+  try {
+    const res = await httpClient.get("/api/bills/" + id).catch((error) => {
       throw checkStatusError(error);
     });
     if (res.data.status === 200) {
@@ -72,6 +87,7 @@ export const func = {
   createBill,
   updateBill,
   getBills,
+  getBillById,
   getBillStatus,
 };
 

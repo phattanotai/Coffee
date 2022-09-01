@@ -52,6 +52,35 @@ export class OrdersController {
     }
   }
 
+  @Post('all/')
+  createAll(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Body() createOrderDto: CreateOrderDto[],
+  ) {
+    try {
+      return this.ordersService.createAll(createOrderDto).pipe(
+        map((saveData) => {
+          if (saveData) {
+            return response.status(200).json({
+              status: 200,
+              message: 'create success',
+            });
+          } else {
+            return response.status(201).json({
+              status: 201,
+              message: 'create fail',
+            });
+          }
+        }),
+      );
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'categories->create ' + error.message,
+      );
+    }
+  }
+
   @Get()
   findAll(@Res() response: Response) {
     try {
@@ -84,6 +113,32 @@ export class OrdersController {
     } catch (error) {
       throw new InternalServerErrorException(
         'bills->getStatus ' + error.message,
+      );
+    }
+  }
+
+  @Get('byBill/:id')
+  findByBill(@Res() response: Response, @Param('id') id: string) {
+    try {
+      const p = { where: [{ bill: id }], relations: ['bill', 'beverage'] };
+      return this.ordersService.find(p).pipe(
+        map((data) => {
+          if (data) {
+            return response.status(200).json({
+              status: 200,
+              data: data,
+            });
+          } else {
+            return response.status(203).json({
+              status: 203,
+              data: [],
+            });
+          }
+        }),
+      );
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'categories->create ' + error.message,
       );
     }
   }

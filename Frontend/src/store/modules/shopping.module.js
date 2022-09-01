@@ -7,6 +7,7 @@ const state = {
   table: 0,
   amount: 0,
   duration: 0,
+  billId: 0,
 };
 
 const getters = {
@@ -15,6 +16,18 @@ const getters = {
   },
   getSumOrder(state) {
     return state.orders.length;
+  },
+  getTable(state) {
+    return state.table;
+  },
+  getAmount(state) {
+    return state.amount;
+  },
+  getDuration(state) {
+    return state.duration;
+  },
+  getBillId(state) {
+    return state.billId;
   },
 };
 
@@ -47,7 +60,7 @@ const actions = {
       notifyService.error(error.message);
     }
   },
-  async createBills({ state }) {
+  async createBills({ commit, state }) {
     try {
       const billData = {
         amount: state.amount,
@@ -55,19 +68,19 @@ const actions = {
         table: state.table,
       };
 
-      console.log(billData);
-
       const bill = await billsService.createBill(billData).catch((error) => {
         throw error;
       });
 
       if (bill) {
         const ordersData = [];
-
+        state.billId = bill.id;
+        localStorage.setItem("billId", bill.id);
         for (const item of state.orders) {
           const data = {
             price: (item.price + item.afterPrice) * item.bpm,
             duration: (item.duration + item.afterDuration) * item.bpm,
+            total: item.bpm,
             beverage: {
               id: item.beverageId,
             },
@@ -75,11 +88,22 @@ const actions = {
               id: bill.id,
             },
           };
-
           ordersData.push(data);
         }
 
-        console.log(ordersData);
+        const order = await oderService
+          .createOrderAll(ordersData)
+          .catch((error) => {
+            throw error;
+          });
+
+        if (order) {
+          commit("CLEAR_DATA");
+
+          return true;
+        } else {
+          return false;
+        }
       }
     } catch (error) {
       notifyService.error(error.message);
@@ -114,6 +138,11 @@ const mutations = {
   CHANGE_TABLE(state, tableNumber) {
     console.log(tableNumber);
     state.table = tableNumber;
+  },
+  CLEAR_DATA(state) {
+    state.orders = [];
+    state.amount = 0;
+    state.duration = 0;
   },
 };
 

@@ -37,6 +37,9 @@
         <v-icon x-small color="#41AB55">fas fa-shopping-cart</v-icon>
       </v-avatar>
     </v-badge>
+    <v-avatar color="brown" size="40" @click="showHistory">
+      <v-icon x-small color="white">mdi-history</v-icon>
+    </v-avatar>
     <!-- <span class="grey--text d-none d-sm-flex"
       >Hello, <strong> Jonny</strong></span
     >
@@ -63,6 +66,9 @@ export default {
     ...mapActions("Shopping", ["changeTable"]),
     showOrder() {
       this.$emit("showOrder");
+    },
+    showHistory() {
+      this.$emit("showHistory");
     },
     onChangeTable() {
       this.changeTable(this.table);
