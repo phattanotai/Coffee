@@ -19,7 +19,7 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdhbWlsLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoidXNlciIsImltYWdlUGF0aCI6InNkc2RzZCJ9LCJpYXQiOjE2NjE5MjY3MjEsImV4cCI6MTY2MTkzNjcyMX0.5_L9CJmABRxaZkwzj4WKwK7bgGN2-ckSM7e5umBTkTk
 
 {
-    "name": "Soft drink",
+    "name": "Soft drink"
 }
 
 

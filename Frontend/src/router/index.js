@@ -37,37 +37,42 @@ const router = new VueRouter({
       // ======================
       // Layout
       // ======================
-      path: "",
+      path: "admin",
       component: () => import("../layout/Full/MainContainer"),
       children: [
         {
-          path: "/dashboard",
+          path: "/admin",
+          name: "dashboard",
+          component: () => import("../views/Dashboard/Dashboard"),
+        },
+        {
+          path: "/admin/dashboard",
           name: "dashboard",
           component: () => import("../views/Dashboard/Dashboard"),
         },
 
         {
-          path: "/user-information",
+          path: "/admin/user-information",
           name: "user-information",
           component: () => import("../views/Userinformation/Index"),
         },
         {
-          path: "/bill-order",
+          path: "/admin/bill-order",
           name: "bill-order",
           component: () => import("../views/BillOrder/Index"),
         },
         {
-          path: "/beverages-list",
+          path: "/admin/beverages-list",
           name: "beverages-list",
           component: () => import("../views/BeveragesList/Index"),
         },
         {
-          path: "/category",
+          path: "/admin/category",
           name: "category",
           component: () => import("../views/Category/Index"),
         },
         {
-          path: "/management",
+          path: "/admin/management",
           name: "management",
           component: () => import("../views/Management/Index"),
         },

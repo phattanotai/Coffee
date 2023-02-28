@@ -14,11 +14,11 @@ export class BeveragesService {
   ) {}
   create(createBeverageDto: CreateBeverageDto) {
     try {
-      return from(this.beverageRepository.save(createBeverageDto)).pipe(
-        map((savedData: any) => {
+      return this.beverageRepository
+        .save(createBeverageDto)
+        .then((savedData: any) => {
           return savedData;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'BeveragesService->create' + error.message };
     }
@@ -26,7 +26,7 @@ export class BeveragesService {
 
   findAll() {
     try {
-      return from(this.beverageRepository.find({ relations: ['category'] }));
+      return this.beverageRepository.find({ relations: ['category'] });
     } catch (error) {
       throw { message: 'BeveragesService->findAll ' + error.message };
     }
@@ -34,7 +34,7 @@ export class BeveragesService {
 
   findOne(id: number) {
     try {
-      return from(this.beverageRepository.findOne({ id }));
+      return this.beverageRepository.findOne({ id });
     } catch (error) {
       throw { message: 'BeveragesService->findOne ' + error.message };
     }
@@ -42,11 +42,11 @@ export class BeveragesService {
 
   update(id: number, updateBeverageDto: UpdateBeverageDto) {
     try {
-      return from(this.beverageRepository.update(id, updateBeverageDto)).pipe(
-        map((savedData: any) => {
+      return this.beverageRepository
+        .update(id, updateBeverageDto)
+        .then((savedData: any) => {
           return savedData.affected;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'BeveragesService->update ' + error.message };
     }
@@ -54,11 +54,9 @@ export class BeveragesService {
 
   remove(id: number) {
     try {
-      return from(this.beverageRepository.delete(id)).pipe(
-        map((savedData: any) => {
-          return savedData.affected;
-        }),
-      );
+      return this.beverageRepository.delete(id).then((savedData: any) => {
+        return savedData.affected;
+      });
     } catch (error) {
       throw { message: 'BeveragesService->remove ' + error.message };
     }

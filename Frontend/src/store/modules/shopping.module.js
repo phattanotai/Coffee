@@ -15,7 +15,7 @@ const getters = {
     return state.orders;
   },
   getSumOrder(state) {
-    return state.orders.length;
+    return state.orders.length || "0";
   },
   getTable(state) {
     return state.table;
@@ -84,6 +84,9 @@ const actions = {
             beverage: {
               id: item.beverageId,
             },
+            sweetness: item.sweetness,
+            type: item.type,
+            option: item.option,
             bill: {
               id: bill.id,
             },
@@ -118,6 +121,11 @@ const mutations = {
     state.orders.push(data);
   },
   REMOVE_ORDER(state, index) {
+    console.log(state.orders[index]);
+
+    state.duration -= state.orders[index].duration * state.orders[index].bpm;
+    state.amount -= state.orders[index].price * state.orders[index].bpm;
+
     state.orders.splice(index, 1);
   },
   EDIT_ORDER(state, data) {

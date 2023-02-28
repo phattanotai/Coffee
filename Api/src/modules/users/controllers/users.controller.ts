@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   InternalServerErrorException,
   Param,
   Post,
@@ -10,7 +12,6 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { map } from 'rxjs/operators';
 import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth.guard';
 import { CreateUser } from '../models/dto/CreateUser.dto';
 import { UsersService } from '../services/users/users.service';
@@ -23,11 +24,25 @@ import { Response } from 'express';
 export class UserController {
   constructor(private userService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
+  @Get('userRole')
+  userRole() {
+    try {
+      return Role;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        'UserController->getRole ' + error.message,
+      );
+    }
+  }
+
   @Post()
   create(@Res() response, @Body() createdUserDto: CreateUser) {
     try {
-      return this.userService.create(createdUserDto).pipe(
-        map((saveData) => {
+      return this.userService
+        .create(createdUserDto)
+        .then((saveData) => {
+          console.log(saveData);
           if (saveData) {
             return response.status(200).json({
               status: 200,
@@ -39,8 +54,10 @@ export class UserController {
               message: 'create fail',
             });
           }
-        }),
-      );
+        })
+        .catch((error) => {
+          throw new HttpException(error.message, HttpStatus.CONFLICT);
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'UserController->create ' + error.message,
@@ -56,8 +73,9 @@ export class UserController {
     @Body() createdUserDto: UpdateUser,
   ) {
     try {
-      return this.userService.update(id, createdUserDto).pipe(
-        map((updateStatus: any) => {
+      return this.userService
+        .update(id, createdUserDto)
+        .then((updateStatus: any) => {
           if (updateStatus) {
             return response.status(200).json({
               status: 200,
@@ -69,8 +87,10 @@ export class UserController {
               message: 'update fail',
             });
           }
-        }),
-      );
+        })
+        .catch((error) => {
+          throw new HttpException(error.message, HttpStatus.CONFLICT);
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'UserController->Put ' + error.message,
@@ -82,21 +102,19 @@ export class UserController {
   @Get()
   findAll(@Res() response: Response) {
     try {
-      return this.userService.findAll().pipe(
-        map((users) => {
-          if (users.length) {
-            return response.status(200).json({
-              status: 200,
-              data: users,
-            });
-          } else {
-            return response.status(203).json({
-              status: 203,
-              data: [],
-            });
-          }
-        }),
-      );
+      return this.userService.findAll().then((users) => {
+        if (users.length) {
+          return response.status(200).json({
+            status: 200,
+            data: users,
+          });
+        } else {
+          return response.status(203).json({
+            status: 203,
+            data: [],
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'UserController->findAll ' + error.message,
@@ -108,51 +126,22 @@ export class UserController {
   @Get(':id')
   find(@Res() response: Response, @Param('id') id: number) {
     try {
-      return this.userService.findOne(id).pipe(
-        map((user) => {
-          if (user) {
-            return response.status(200).json({
-              status: 200,
-              data: user,
-            });
-          } else {
-            return response.status(203).json({
-              status: 203,
-              data: [],
-            });
-          }
-        }),
-      );
-    } catch (error) {
-      throw new InternalServerErrorException(
-        'UserController->find ' + error.message,
-      );
-    }
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('userRole')
-  getRole() {
-    try {
-      return Role;
-    } catch (error) {
-      throw new InternalServerErrorException(
-        'UserController->getRole ' + error.message,
-      );
-    }
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('me')
-  getInfo(@Req() request: Request, @Res() response: Response) {
-    try {
-      return response.status(200).json({
-        status: 200,
-        data: request.user,
+      return this.userService.findOne(id).then((user) => {
+        if (user) {
+          return response.status(200).json({
+            status: 200,
+            data: user,
+          });
+        } else {
+          return response.status(203).json({
+            status: 203,
+            data: [],
+          });
+        }
       });
     } catch (error) {
       throw new InternalServerErrorException(
-        'UserController->getInfo ' + error.message,
+        'UserController->find ' + error.message,
       );
     }
   }

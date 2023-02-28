@@ -15,21 +15,19 @@ export class TablesService {
 
   create(createTablesDto: CreateTablesDto) {
     try {
-      return this.findTableNumber(createTablesDto.number).pipe(
-        map((findStatus) => {
-          if (!findStatus) {
-            return from(this.tablesRepository.save(createTablesDto)).pipe(
-              map((savedData: any) => {
-                return savedData;
-              }),
-            );
-          } else {
-            return {
-              message: 'munber already in use',
-            };
-          }
-        }),
-      );
+      return this.findTableNumber(createTablesDto.number).then((findStatus) => {
+        if (!findStatus) {
+          return this.tablesRepository
+            .save(createTablesDto)
+            .then((savedData: any) => {
+              return savedData;
+            });
+        } else {
+          return {
+            message: 'munber already in use',
+          };
+        }
+      });
     } catch (error) {
       throw { message: 'OptionsService->create ' + error.message };
     }
@@ -53,11 +51,11 @@ export class TablesService {
 
   update(id: number, updateTablesDto: UpdateTablesDto) {
     try {
-      return from(this.tablesRepository.update(id, updateTablesDto)).pipe(
-        map((savedData: any) => {
+      return this.tablesRepository
+        .update(id, updateTablesDto)
+        .then((savedData: any) => {
           return savedData.affected;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OptionsService->update ' + error.message };
     }
@@ -67,19 +65,17 @@ export class TablesService {
     return `This action removes a #${id} masterDatum`;
   }
 
-  private findTableNumber(number: string): Observable<any> {
-    return from(
-      this.tablesRepository.findOne({
+  private findTableNumber(number: string): Promise<any> {
+    return this.tablesRepository
+      .findOne({
         where: [{ number }],
-      }),
-    ).pipe(
-      map((data) => {
+      })
+      .then((data) => {
         if (data) {
           return true;
         } else {
           return false;
         }
-      }),
-    );
+      });
   }
 }

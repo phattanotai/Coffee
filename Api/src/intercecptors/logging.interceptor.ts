@@ -4,9 +4,10 @@ import {
   ExecutionContext,
   CallHandler,
   Logger,
+  BadGatewayException,
 } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
@@ -29,7 +30,7 @@ export class LoggingInterceptor implements NestInterceptor {
         this.logger.error(
           `Error Response to ${ip} method ${method} from ${url} ${err.message}`,
         );
-        return throwError(() => err.message);
+        return throwError(() => err);
       }),
     );
   }

@@ -14,11 +14,11 @@ export class OrdersService {
   ) {}
   create(createOrderDto: CreateOrderDto) {
     try {
-      return from(this.orderRepository.save(createOrderDto)).pipe(
-        map((savedData: any) => {
+      return this.orderRepository
+        .save(createOrderDto)
+        .then((savedData: any) => {
           return savedData;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OrdersService->create' + error.message };
     }
@@ -26,11 +26,11 @@ export class OrdersService {
 
   createAll(createOrderDto: CreateOrderDto[]) {
     try {
-      return from(this.orderRepository.save(createOrderDto)).pipe(
-        map((savedData: any) => {
+      return this.orderRepository
+        .save(createOrderDto)
+        .then((savedData: any) => {
           return savedData;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OrdersService->create' + error.message };
     }
@@ -38,9 +38,7 @@ export class OrdersService {
 
   findAll() {
     try {
-      return from(
-        this.orderRepository.find({ relations: ['bill', 'beverage'] }),
-      );
+      return this.orderRepository.find({ relations: ['bill', 'beverage'] });
     } catch (error) {
       throw { message: 'OrdersService->findAll ' + error.message };
     }
@@ -48,7 +46,7 @@ export class OrdersService {
 
   find(param: any) {
     try {
-      return from(this.orderRepository.find(param));
+      return this.orderRepository.find(param);
     } catch (error) {
       throw { message: 'OrdersService->findAll ' + error.message };
     }
@@ -56,7 +54,7 @@ export class OrdersService {
 
   findOne(id: number) {
     try {
-      return from(this.orderRepository.findOne({ id }));
+      return this.orderRepository.findOne({ id });
     } catch (error) {
       throw { message: 'OrdersService->findOne ' + error.message };
     }
@@ -64,11 +62,11 @@ export class OrdersService {
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
     try {
-      return from(this.orderRepository.update(id, updateOrderDto)).pipe(
-        map((savedData: any) => {
+      return this.orderRepository
+        .update(id, updateOrderDto)
+        .then((savedData: any) => {
           return savedData.affected;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OrdersService->update ' + error.message };
     }

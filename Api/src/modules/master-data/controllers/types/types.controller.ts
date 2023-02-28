@@ -34,21 +34,19 @@ export class TypesController {
     try {
       createTypesDto.createByUser = request.user;
       createTypesDto.updateByUser = request.user;
-      return this.typesService.create(createTypesDto).pipe(
-        map((saveData) => {
-          if (saveData) {
-            return response.status(200).json({
-              status: 200,
-              message: 'create success',
-            });
-          } else {
-            return response.status(201).json({
-              status: 201,
-              message: 'create fail',
-            });
-          }
-        }),
-      );
+      return this.typesService.create(createTypesDto).then((saveData) => {
+        if (saveData) {
+          return response.status(200).json({
+            status: 200,
+            message: 'create success',
+          });
+        } else {
+          return response.status(201).json({
+            status: 201,
+            message: 'create fail',
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,
@@ -118,8 +116,9 @@ export class TypesController {
   ) {
     try {
       updateTypesDto.updateByUser = request.user;
-      return this.typesService.update(+id, updateTypesDto).pipe(
-        map((updateStatus: any) => {
+      return this.typesService
+        .update(+id, updateTypesDto)
+        .then((updateStatus: any) => {
           if (updateStatus) {
             return response.status(200).json({
               status: 200,
@@ -131,8 +130,7 @@ export class TypesController {
               message: 'update fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,

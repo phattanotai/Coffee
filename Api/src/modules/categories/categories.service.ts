@@ -15,11 +15,11 @@ export class CategoriesService {
 
   create(createCategoryDto: CreateCategoryDto) {
     try {
-      return from(this.cateRepository.save(createCategoryDto)).pipe(
-        map((savedData: any) => {
+      return this.cateRepository
+        .save(createCategoryDto)
+        .then((savedData: any) => {
           return savedData;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'CategoriesService->create ' + error.message };
     }
@@ -43,11 +43,11 @@ export class CategoriesService {
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
     try {
-      return from(this.cateRepository.update(id, updateCategoryDto)).pipe(
-        map((savedData: any) => {
+      return this.cateRepository
+        .update(id, updateCategoryDto)
+        .then((savedData: any) => {
           return savedData;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'CategoriesService->update' + error.message };
     }
@@ -55,11 +55,9 @@ export class CategoriesService {
 
   remove(id: number) {
     try {
-      return from(this.cateRepository.delete(id)).pipe(
-        map((savedData: any) => {
-          return savedData.affected;
-        }),
-      );
+      return this.cateRepository.delete(id).then((savedData: any) => {
+        return savedData.affected;
+      });
     } catch (error) {
       throw { message: 'BeveragesService->remove ' + error.message };
     }

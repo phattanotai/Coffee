@@ -153,6 +153,7 @@ export default {
     saveData() {
       if (this.type === "add") {
         categoryService.createCategory({ name: this.name }).then((res) => {
+          console.log(res);
           if (res) {
             notifyService.Success(`Create data Success !!`);
             this.dialogOption = false;
@@ -182,6 +183,7 @@ export default {
         this.name = i.name;
       } else {
         this.type = "add";
+        this.name = "";
       }
     },
     async fetchData() {

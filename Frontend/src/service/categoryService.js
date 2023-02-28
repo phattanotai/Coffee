@@ -8,7 +8,8 @@ const createCategory = async (createData) => {
       .catch((error) => {
         throw checkStatusError(error);
       });
-    if (res.data.status === 200) {
+    console.log(res);
+    if (res.status === 201) {
       return true;
     } else {
       return false;

@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center" class="space px-16">
+  <v-row justify="center" class="space px-16 mb-50">
     <v-col
       cols="12"
       xs="12"
@@ -189,5 +189,9 @@ export default {
 <style>
 .rounded-img {
   border-radius: 10%;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
 }
 </style>

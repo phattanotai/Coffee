@@ -31,22 +31,20 @@ export class BillsController {
     @Body() createBillDto: CreateBillDto,
   ) {
     try {
-      return this.billsService.create(createBillDto).pipe(
-        map((saveData) => {
-          if (saveData) {
-            return response.status(200).json({
-              status: 200,
-              message: 'create success',
-              data: saveData,
-            });
-          } else {
-            return response.status(201).json({
-              status: 201,
-              message: 'create fail',
-            });
-          }
-        }),
-      );
+      return this.billsService.create(createBillDto).then((saveData) => {
+        if (saveData) {
+          return response.status(200).json({
+            status: 200,
+            message: 'create success',
+            data: saveData,
+          });
+        } else {
+          return response.status(201).json({
+            status: 201,
+            message: 'create fail',
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException('bills->create ' + error.message);
     }
@@ -55,21 +53,19 @@ export class BillsController {
   @Get()
   findAll(@Res() response: Response) {
     try {
-      return this.billsService.findAll().pipe(
-        map((data) => {
-          if (data.length) {
-            return response.status(200).json({
-              status: 200,
-              data: data,
-            });
-          } else {
-            return response.status(203).json({
-              status: 203,
-              data: [],
-            });
-          }
-        }),
-      );
+      return this.billsService.findAll().then((data) => {
+        if (data.length) {
+          return response.status(200).json({
+            status: 200,
+            data: data,
+          });
+        } else {
+          return response.status(203).json({
+            status: 203,
+            data: [],
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException('bills->create ' + error.message);
     }
@@ -89,21 +85,19 @@ export class BillsController {
   @Get(':id')
   findOne(@Res() response: Response, @Param('id') id: string) {
     try {
-      return this.billsService.findOne(+id).pipe(
-        map((data) => {
-          if (data) {
-            return response.status(200).json({
-              status: 200,
-              data: data,
-            });
-          } else {
-            return response.status(203).json({
-              status: 203,
-              data: [],
-            });
-          }
-        }),
-      );
+      return this.billsService.findOne(+id).then((data) => {
+        if (data) {
+          return response.status(200).json({
+            status: 200,
+            data: data,
+          });
+        } else {
+          return response.status(203).json({
+            status: 203,
+            data: [],
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException('bills->create ' + error.message);
     }
@@ -119,8 +113,9 @@ export class BillsController {
   ) {
     try {
       updateBillDto.updateByUser = request.user;
-      return this.billsService.update(+id, updateBillDto).pipe(
-        map((updateStatus: any) => {
+      return this.billsService
+        .update(+id, updateBillDto)
+        .then((updateStatus: any) => {
           if (updateStatus) {
             return response.status(200).json({
               status: 200,
@@ -132,8 +127,7 @@ export class BillsController {
               message: 'update fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException('bills->create ' + error.message);
     }

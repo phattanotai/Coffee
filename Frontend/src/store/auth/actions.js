@@ -18,7 +18,7 @@ export default {
         context.commit("setUserData", loginDataRes.user);
         storage.setToken(loginDataRes.jwt);
         alertService.success("Login Success");
-        setTimeout(() => router.push("/"), 1500);
+        setTimeout(() => router.push("/admin"), 1500);
       } else {
         alertService.warning("Login Fail");
       }

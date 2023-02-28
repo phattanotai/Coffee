@@ -105,8 +105,9 @@ export class CategoriesController {
   ) {
     try {
       updateCategoryDto.updateByUser = request.user;
-      return this.categoriesService.update(+id, updateCategoryDto).pipe(
-        map((updateStatus: any) => {
+      return this.categoriesService
+        .update(+id, updateCategoryDto)
+        .then((updateStatus: any) => {
           if (updateStatus) {
             return response.status(200).json({
               status: 200,
@@ -118,8 +119,7 @@ export class CategoriesController {
               message: 'update fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->update ' + error.message,
@@ -131,22 +131,19 @@ export class CategoriesController {
   @Delete(':id')
   remove(@Res() response: Response, @Param('id') id: string) {
     try {
-      console.log(1111, id);
-      return this.categoriesService.remove(+id).pipe(
-        map((data: any) => {
-          if (data) {
-            return response.status(200).json({
-              status: 200,
-              message: 'delete success',
-            });
-          } else {
-            return response.status(201).json({
-              status: 201,
-              message: 'delete fail',
-            });
-          }
-        }),
-      );
+      return this.categoriesService.remove(+id).then((data: any) => {
+        if (data) {
+          return response.status(200).json({
+            status: 200,
+            message: 'delete success',
+          });
+        } else {
+          return response.status(201).json({
+            status: 201,
+            message: 'delete fail',
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->remove ' + error.message,

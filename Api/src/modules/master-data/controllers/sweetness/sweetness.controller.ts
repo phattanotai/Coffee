@@ -32,8 +32,9 @@ export class SweetnessController {
   ) {
     try {
       createSweetnessDto.createByUser = request.user;
-      return this.sweetnessService.create(createSweetnessDto).pipe(
-        map((saveData) => {
+      return this.sweetnessService
+        .create(createSweetnessDto)
+        .then((saveData) => {
           if (saveData) {
             return response.status(200).json({
               status: 200,
@@ -45,8 +46,7 @@ export class SweetnessController {
               message: 'create fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,
@@ -116,8 +116,9 @@ export class SweetnessController {
   ) {
     try {
       updateSweetnessDto.updateByUser = request.user;
-      return this.sweetnessService.update(+id, updateSweetnessDto).pipe(
-        map((updateStatus: any) => {
+      return this.sweetnessService
+        .update(+id, updateSweetnessDto)
+        .then((updateStatus: any) => {
           if (updateStatus) {
             return response.status(200).json({
               status: 200,
@@ -129,8 +130,7 @@ export class SweetnessController {
               message: 'update fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,

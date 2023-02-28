@@ -15,11 +15,11 @@ export class OptionsService {
 
   create(createOptionsDto: CreateOptionsDto) {
     try {
-      return from(this.optionsRepository.save(createOptionsDto)).pipe(
-        map((savedData: any) => {
+      return this.optionsRepository
+        .save(createOptionsDto)
+        .then((savedData: any) => {
           return savedData;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OptionsService->create ' + error.message };
     }
@@ -43,11 +43,11 @@ export class OptionsService {
 
   update(id: number, updateOptionsDto: UpdateOptionsDto) {
     try {
-      return from(this.optionsRepository.update(id, updateOptionsDto)).pipe(
-        map((savedData: any) => {
+      return this.optionsRepository
+        .update(id, updateOptionsDto)
+        .then((savedData: any) => {
           return savedData.affected;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OptionsService->update ' + error.message };
     }

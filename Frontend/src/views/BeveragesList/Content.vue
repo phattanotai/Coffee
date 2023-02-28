@@ -180,7 +180,7 @@ export default {
   },
   data: () => ({
     name: "",
-    category: 1,
+    category: 0,
     duration: "",
     price: "",
 
@@ -313,13 +313,11 @@ export default {
         this.btndisabled = true;
 
         const data = {
-          duration: this.duration,
-          price: this.price,
+          duration: Number(this.duration),
+          price: Number(this.price),
           img: this.valueImg,
           name: this.name,
-          category: {
-            id: this.category,
-          },
+          category: this.category,
         };
 
         this.$emit("onSaveData", {
@@ -335,9 +333,7 @@ export default {
     this.name = this.valueData?.name;
     this.duration = this.valueData?.duration;
     this.price = this.valueData?.price;
-    this.category = this.valueData?.category?.id
-      ? this.valueData?.category?.id
-      : 1;
+    this.category = this.valueData?.category;
     this.newbanner = this.newbanner ? this.newbanner : this.valueImg;
   },
   computed: {

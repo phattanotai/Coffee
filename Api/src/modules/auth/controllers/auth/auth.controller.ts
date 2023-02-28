@@ -4,18 +4,19 @@ import {
   Get,
   HttpCode,
   HttpException,
+  HttpStatus,
   InternalServerErrorException,
   Post,
   Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
-
+import { CookieGuard } from '../../guards/cookie.guard';
 import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import { LoginUser, ResponseLoginUser } from '../../dto/auth.dto';
 import { UsersService } from 'src/modules/users/services/users/users.service';
 import { Request as RequestE, Response } from 'express';
-import { map, Observable } from 'rxjs';
+
 import {
   ApiTags,
   ApiOperation,
@@ -24,7 +25,6 @@ import {
   ApiExtraModels,
   getSchemaPath,
 } from '@nestjs/swagger';
-import { CookieGuard } from '../../guards/cookie.guard';
 
 interface Request extends RequestE {
   user?: any;
@@ -70,8 +70,10 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     try {
-      return this.usersService.login(loginUser).pipe(
-        map((data) => {
+      return this.usersService
+        .login(loginUser)
+        .then((data) => {
+          console.log(data);
           response.cookie('token', data.accessToken, {
             httpOnly: true,
           });
@@ -79,9 +81,12 @@ export class AuthController {
             status: 200,
             data: data,
           };
-        }),
-      );
+        })
+        .catch((data) => {
+          throw new HttpException(data.message, HttpStatus.UNAUTHORIZED);
+        });
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException('loginCon ' + error.message);
     }
   }
@@ -91,20 +96,18 @@ export class AuthController {
   refreshToken(
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
-  ): Observable<any> | Promise<any> {
+  ): Promise<any> {
     try {
       const token = request.headers['authorization'].slice(7);
-      return this.usersService.refreshToken(token).pipe(
-        map((refreshToken) => {
-          response.cookie('token', refreshToken, {
-            httpOnly: true,
-          });
-          return {
-            status: 200,
-            refreshToken,
-          };
-        }),
-      );
+      return this.usersService.refreshToken(token).then((refreshToken) => {
+        response.cookie('token', refreshToken, {
+          httpOnly: true,
+        });
+        return {
+          status: 200,
+          refreshToken,
+        };
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'refreshTokenCon ' + error.message,
@@ -113,10 +116,10 @@ export class AuthController {
   }
 
   // @HasRoles(Role.ADMIN, Role.USER)
-  @UseGuards(JwtAuthGuard, CookieGuard)
+  // @UseGuards(JwtAuthGuard, CookieGuard)
   @Get('test')
   @HttpCode(200)
-  test(): Observable<any> | Promise<any> | any {
+  test() {
     try {
       return { message: 'test' };
     } catch (error) {

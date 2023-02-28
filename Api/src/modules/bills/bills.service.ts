@@ -14,11 +14,9 @@ export class BillsService {
   ) {}
   create(createBillDto: CreateBillDto) {
     try {
-      return from(this.billeRepository.save(createBillDto)).pipe(
-        map((savedData: any) => {
-          return savedData;
-        }),
-      );
+      return this.billeRepository.save(createBillDto).then((savedData: any) => {
+        return savedData;
+      });
     } catch (error) {
       throw { message: 'BillsService->create' + error.message };
     }
@@ -26,7 +24,7 @@ export class BillsService {
 
   findAll() {
     try {
-      return from(this.billeRepository.find());
+      return this.billeRepository.find();
     } catch (error) {
       throw { message: 'BillsService->findAll ' + error.message };
     }
@@ -34,7 +32,7 @@ export class BillsService {
 
   findOne(id: number) {
     try {
-      return from(this.billeRepository.findOne({ id }));
+      return this.billeRepository.findOne({ id });
     } catch (error) {
       throw { message: 'BillsService->findOne ' + error.message };
     }
@@ -42,11 +40,11 @@ export class BillsService {
 
   update(id: number, updateBillDto: UpdateBillDto) {
     try {
-      return from(this.billeRepository.update(id, updateBillDto)).pipe(
-        map((savedData: any) => {
+      return this.billeRepository
+        .update(id, updateBillDto)
+        .then((savedData: any) => {
           return savedData.affected;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'BillsService->update ' + error.message };
     }

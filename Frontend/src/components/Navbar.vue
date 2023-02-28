@@ -37,9 +37,13 @@
         <v-icon x-small color="#41AB55">fas fa-shopping-cart</v-icon>
       </v-avatar>
     </v-badge>
-    <v-avatar color="brown" size="40" @click="showHistory">
-      <v-icon x-small color="white">mdi-history</v-icon>
-    </v-avatar>
+
+    <v-badge color="#41AB55" overlap :content="1" class="order mr-2 mt-1">
+      <v-avatar color="brown" size="40" @click="showHistory">
+        <v-icon x-small color="white">mdi-history</v-icon>
+      </v-avatar>
+    </v-badge>
+
     <!-- <span class="grey--text d-none d-sm-flex"
       >Hello, <strong> Jonny</strong></span
     >
@@ -53,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   props: {
     sumOrder: 0,

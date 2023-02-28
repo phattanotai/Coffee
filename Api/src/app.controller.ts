@@ -15,9 +15,4 @@ export class AppController {
       data: request.user,
     };
   }
-
-  @Get('userProfile')
-  getHello(): string {
-    return 'Hello World!';
-  }
 }

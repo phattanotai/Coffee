@@ -22,7 +22,6 @@ import { storage } from 'src/helpers/upload.function';
 import { uploadConfig } from 'src/helpers/config/config';
 import { Request } from '../../interfaces/ExpressReq.interface';
 import { Response } from 'express';
-import { map } from 'rxjs';
 
 @Controller('beverages')
 export class BeveragesController {
@@ -60,8 +59,9 @@ export class BeveragesController {
   ) {
     try {
       createBeverageDto.createByUser = request.user;
-      return this.beveragesService.create(createBeverageDto).pipe(
-        map((saveData) => {
+      return this.beveragesService
+        .create(createBeverageDto)
+        .then((saveData) => {
           if (saveData) {
             return response.status(200).json({
               status: 200,
@@ -73,8 +73,7 @@ export class BeveragesController {
               message: 'create fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,
@@ -86,21 +85,19 @@ export class BeveragesController {
   @Get()
   findAll(@Res() response: Response) {
     try {
-      return this.beveragesService.findAll().pipe(
-        map((data) => {
-          if (data.length) {
-            return response.status(200).json({
-              status: 200,
-              data: data,
-            });
-          } else {
-            return response.status(203).json({
-              status: 203,
-              data: [],
-            });
-          }
-        }),
-      );
+      return this.beveragesService.findAll().then((data) => {
+        if (data.length) {
+          return response.status(200).json({
+            status: 200,
+            data: data,
+          });
+        } else {
+          return response.status(203).json({
+            status: 203,
+            data: [],
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->findAll ' + error.message,
@@ -112,21 +109,19 @@ export class BeveragesController {
   @Get(':id')
   findOne(@Res() response: Response, @Param('id') id: string) {
     try {
-      return this.beveragesService.findOne(+id).pipe(
-        map((data) => {
-          if (data) {
-            return response.status(200).json({
-              status: 200,
-              data: data,
-            });
-          } else {
-            return response.status(203).json({
-              status: 203,
-              data: [],
-            });
-          }
-        }),
-      );
+      return this.beveragesService.findOne(+id).then((data) => {
+        if (data) {
+          return response.status(200).json({
+            status: 200,
+            data: data,
+          });
+        } else {
+          return response.status(203).json({
+            status: 203,
+            data: [],
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->findOne ' + error.message,
@@ -144,8 +139,9 @@ export class BeveragesController {
   ) {
     try {
       updateBeverageDto.updateByUser = request.user;
-      return this.beveragesService.update(+id, updateBeverageDto).pipe(
-        map((updateStatus: any) => {
+      return this.beveragesService
+        .update(+id, updateBeverageDto)
+        .then((updateStatus: any) => {
           if (updateStatus) {
             return response.status(200).json({
               status: 200,
@@ -157,8 +153,7 @@ export class BeveragesController {
               message: 'update fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->update ' + error.message,
@@ -170,21 +165,19 @@ export class BeveragesController {
   @Delete(':id')
   remove(@Res() response: Response, @Param('id') id: string) {
     try {
-      return this.beveragesService.remove(+id).pipe(
-        map((data: any) => {
-          if (data) {
-            return response.status(200).json({
-              status: 200,
-              message: 'delete success',
-            });
-          } else {
-            return response.status(201).json({
-              status: 201,
-              message: 'delete fail',
-            });
-          }
-        }),
-      );
+      return this.beveragesService.remove(+id).then((data: any) => {
+        if (data) {
+          return response.status(200).json({
+            status: 200,
+            message: 'delete success',
+          });
+        } else {
+          return response.status(201).json({
+            status: 201,
+            message: 'delete fail',
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->remove ' + error.message,

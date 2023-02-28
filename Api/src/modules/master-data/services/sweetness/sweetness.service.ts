@@ -15,11 +15,11 @@ export class SweetnessService {
 
   create(createSweetnessDto: CreateSweetnessDto) {
     try {
-      return from(this.sweetnessRepository.save(createSweetnessDto)).pipe(
-        map((savedData: any) => {
+      return this.sweetnessRepository
+        .save(createSweetnessDto)
+        .then((savedData: any) => {
           return savedData;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OptionsService->create ' + error.message };
     }
@@ -43,11 +43,11 @@ export class SweetnessService {
 
   update(id: number, updateSweetnessDto: UpdateSweetnessDto) {
     try {
-      return from(this.sweetnessRepository.update(id, updateSweetnessDto)).pipe(
-        map((savedData: any) => {
+      return this.sweetnessRepository
+        .update(id, updateSweetnessDto)
+        .then((savedData: any) => {
           return savedData.affected;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OptionsService->update ' + error.message };
     }

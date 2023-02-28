@@ -32,21 +32,19 @@ export class OptionsController {
   ) {
     try {
       createOptionsDto.createByUser = request.user;
-      return this.optionsService.create(createOptionsDto).pipe(
-        map((saveData) => {
-          if (saveData) {
-            return response.status(200).json({
-              status: 200,
-              message: 'create success',
-            });
-          } else {
-            return response.status(201).json({
-              status: 201,
-              message: 'create fail',
-            });
-          }
-        }),
-      );
+      return this.optionsService.create(createOptionsDto).then((saveData) => {
+        if (saveData) {
+          return response.status(200).json({
+            status: 200,
+            message: 'create success',
+          });
+        } else {
+          return response.status(201).json({
+            status: 201,
+            message: 'create fail',
+          });
+        }
+      });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,
@@ -116,8 +114,9 @@ export class OptionsController {
   ) {
     try {
       updateOptionsDto.updateByUser = request.user;
-      return this.optionsService.update(+id, updateOptionsDto).pipe(
-        map((updateStatus: any) => {
+      return this.optionsService
+        .update(+id, updateOptionsDto)
+        .then((updateStatus: any) => {
           if (updateStatus) {
             return response.status(200).json({
               status: 200,
@@ -129,8 +128,7 @@ export class OptionsController {
               message: 'update fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,

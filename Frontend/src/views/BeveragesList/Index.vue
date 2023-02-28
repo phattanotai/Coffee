@@ -200,7 +200,6 @@ export default {
         }
 
         this.categoryList = await categoryService.getCategory();
-
         this.closeLoading();
       } catch (error) {
         this.closeLoading();

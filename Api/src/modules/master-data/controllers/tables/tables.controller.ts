@@ -32,8 +32,9 @@ export class TablesController {
   ) {
     try {
       createTablesDto.createByUser = request.user;
-      return this.tablesService.create(createTablesDto).pipe(
-        map((saveData: any) => {
+      return this.tablesService
+        .create(createTablesDto)
+        .then((saveData: any) => {
           if (!saveData.message) {
             return response.status(200).json({
               status: 200,
@@ -45,8 +46,7 @@ export class TablesController {
               message: 'create fail ' + saveData.message,
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,
@@ -116,8 +116,9 @@ export class TablesController {
   ) {
     try {
       updateTablesDto.updateByUser = request.user;
-      return this.tablesService.update(+id, updateTablesDto).pipe(
-        map((updateStatus: any) => {
+      return this.tablesService
+        .update(+id, updateTablesDto)
+        .then((updateStatus: any) => {
           if (updateStatus) {
             return response.status(200).json({
               status: 200,
@@ -129,8 +130,7 @@ export class TablesController {
               message: 'update fail',
             });
           }
-        }),
-      );
+        });
     } catch (error) {
       throw new InternalServerErrorException(
         'categories->create ' + error.message,

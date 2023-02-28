@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, map } from 'rxjs';
+import { from } from 'rxjs';
 import { Repository } from 'typeorm';
 import { CreateTypesDto } from '../../dto/typesDto/create-types.dto';
 import { UpdateTypesDto } from '../../dto/typesDto/update-types.dto';
@@ -15,11 +15,11 @@ export class TypesService {
 
   create(createTypesDto: CreateTypesDto) {
     try {
-      return from(this.typesRepository.save(createTypesDto)).pipe(
-        map((savedData: any) => {
+      return this.typesRepository
+        .save(createTypesDto)
+        .then((savedData: any) => {
           return savedData;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OptionsService->create ' + error.message };
     }
@@ -43,11 +43,11 @@ export class TypesService {
 
   update(id: number, updateTypesDto: UpdateTypesDto) {
     try {
-      return from(this.typesRepository.update(id, updateTypesDto)).pipe(
-        map((savedData: any) => {
+      return this.typesRepository
+        .update(id, updateTypesDto)
+        .then((savedData: any) => {
           return savedData.affected;
-        }),
-      );
+        });
     } catch (error) {
       throw { message: 'OptionsService->update ' + error.message };
     }

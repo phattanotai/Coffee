@@ -7,28 +7,25 @@ import * as bcrypt from 'bcrypt';
 export class HashService {
   constructor(private readonly jwtService: JwtService) {}
 
-  generateJwt(user: any): Observable<string> {
+  generateJwt(user: any): Promise<string> {
     try {
-      return from(this.jwtService.signAsync({ user }));
+      return this.jwtService.signAsync({ user });
     } catch (error) {
       throw { message: 'generateJwt ' + error.message };
     }
   }
 
-  hashPassword(password: string): Observable<string> {
+  hashPassword(password: string): Promise<string> {
     try {
-      return from<Promise<string>>(bcrypt.hash(password, 12));
+      return bcrypt.hash(password, 12);
     } catch (error) {
       throw { message: 'hashPassword ' + error.message };
     }
   }
 
-  comparePasswords(
-    password: string,
-    storedPasswordHash: string,
-  ): Observable<any> {
+  comparePasswords(password: string, storedPasswordHash: string): Promise<any> {
     try {
-      return from(bcrypt.compare(password, storedPasswordHash));
+      return bcrypt.compare(password, storedPasswordHash);
     } catch (error) {
       throw { message: 'comparePasswords ' + error.message };
     }
