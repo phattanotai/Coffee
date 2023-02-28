@@ -1,6 +1,3 @@
-# admin777
-
-SWAGGER API: https://admin777-api.herokuapp.com/documentation
 
 ## Project setup
 ```
